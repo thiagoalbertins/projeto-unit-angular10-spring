@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
-import { TutorialDetailsComponent } from './components/tutorial-details/tutorial-details.component';
-import { TutorialsListComponent } from './components/tutorials-list/tutorials-list.component';
+import { ClienteDetailsComponent } from './components/cliente-details/cliente-details.component';
+import { ClientesListComponent } from './components/clientes-list/clientes-list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,8 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     AddTutorialComponent,
-    TutorialDetailsComponent,
-    TutorialsListComponent
+    ClienteDetailsComponent,
+    ClientesListComponent
   ],
   imports: [
     BrowserModule,
