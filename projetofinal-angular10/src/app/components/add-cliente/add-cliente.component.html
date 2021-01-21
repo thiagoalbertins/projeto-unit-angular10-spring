@@ -1,14 +1,13 @@
 <div style="width: 400px; margin: auto;">
-    <div *ngIf="currentCliente" class="edit-form">
-      <h4>Cliente</h4>
-      <form>
+    <div class="submit-form">
+      <div *ngIf="!submitted">
         <div class="form-group">
           <label for="nome">Nome</label>
           <input
             type="text"
             class="form-control"
             id="nome"
-            [(ngModel)]="currentCliente.nome"
+            [(ngModel)]="cliente.nome"
             name="nome"
           />
         </div>
@@ -18,7 +17,7 @@
             type="text"
             class="form-control"
             id="cpf"
-            [(ngModel)]="currentCliente.cpf"
+            [(ngModel)]="cliente.cpf"
             name="cpf"
           />
         </div>
@@ -28,7 +27,7 @@
             type="text"
             class="form-control"
             id="email"
-            [(ngModel)]="currentCliente.email"
+            [(ngModel)]="cliente.email"
             name="email"
           />
         </div>
@@ -38,7 +37,7 @@
             type="text"
             class="form-control"
             id="sexo"
-            [(ngModel)]="currentCliente.sexo"
+            [(ngModel)]="cliente.sexo"
             name="sexo"
           />
         </div>
@@ -48,7 +47,7 @@
             type="text"
             class="form-control"
             id="apelido"
-            [(ngModel)]="currentCliente.apelido"
+            [(ngModel)]="cliente.apelido"
             name="apelido"
           />
         </div>
@@ -58,7 +57,7 @@
             type="text"
             class="form-control"
             id="telefone"
-            [(ngModel)]="currentCliente.telefone"
+            [(ngModel)]="cliente.telefone"
             name="telefone"
           />
         </div>
@@ -68,7 +67,7 @@
             type="text"
             class="form-control"
             id="nomeSocial"
-            [(ngModel)]="currentCliente.nomeSocial"
+            [(ngModel)]="cliente.nomeSocial"
             name="nomeSocial"
           />
         </div>
@@ -78,28 +77,17 @@
             type="text"
             class="form-control"
             id="dataNascimento"
-            [(ngModel)]="currentCliente.dataNascimento"
+            [(ngModel)]="cliente.dataNascimento"
             name="dataNascimento"
           />
         </div>
-      </form>
   
-      <button class="badge badge-danger mr-2" (click)="deleteCliente()">
-        Deletar
-      </button>
+        <button (click)="saveCliente()" class="btn btn-success">Cadastrar</button>
+      </div>
   
-      <button
-        type="submit"
-        class="badge badge-success"
-        (click)="updateCliente()"
-      >
-        Atualizar
-      </button>
-      <p>{{ message }}</p>
-    </div>
-  
-    <div *ngIf="!currentCliente">
-      <br />
-      <p>Não foi possível localizar o Cliente...</p>
+      <div *ngIf="submitted">
+        <h4>Cliente adicionado com sucesso!</h4>
+        <button class="btn btn-success" (click)="newCliente()">Add</button>
+      </div>
     </div>
   </div>

@@ -2,30 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
-  selector: 'app-add-tutorial',
-  templateUrl: './add-tutorial.component.html',
-  styleUrls: ['./add-tutorial.component.css']
+  selector: 'app-add-cliente',
+  templateUrl: './add-cliente.component.html',
+  styleUrls: ['./add-cliente.component.css']
 })
-export class AddTutorialComponent implements OnInit {
-  tutorial = {
+export class AddClienteComponent implements OnInit {
+  cliente = {
     title: '',
     description: '',
     published: false
   };
   submitted = false;
 
-  constructor(private tutorialService: ClienteService) { }
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit(): void {
   }
 
-  saveTutorial(): void {
+  saveCliente(): void {
     const data = {
-      title: this.tutorial.title,
-      description: this.tutorial.description
+      title: this.cliente.title,
+      description: this.cliente.description
     };
 
-    this.tutorialService.create(data)
+    this.clienteService.create(data)
       .subscribe(
         response => {
           console.log(response);
@@ -36,9 +36,9 @@ export class AddTutorialComponent implements OnInit {
         });
   }
 
-  newTutorial(): void {
+  newCliente(): void {
     this.submitted = false;
-    this.tutorial = {
+    this.cliente = {
       title: '',
       description: '',
       published: false

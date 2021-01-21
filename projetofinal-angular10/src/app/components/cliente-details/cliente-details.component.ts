@@ -56,10 +56,11 @@ export class ClienteDetailsComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.message = 'O cliente foi atualizado com sucesso!';
+          this.message = 'Cliente foi atualizado com sucesso!';
         },
         error => {
           console.log(error);
+          this.message = error.error;
         });
   }
 

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddTutorialComponent } from './components/add-tutorial/add-tutorial.component';
+import { AddClienteComponent } from './components/add-cliente/add-cliente.component';
 import { ClienteDetailsComponent } from './components/cliente-details/cliente-details.component';
 import { ClientesListComponent } from './components/clientes-list/clientes-list.component';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    AddTutorialComponent,
+    AddClienteComponent,
     ClienteDetailsComponent,
     ClientesListComponent
   ],
