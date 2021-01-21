@@ -1,6 +1,7 @@
 <div style="width: 400px; margin: auto;">
     <div class="submit-form">
       <div *ngIf="!submitted">
+        <h4>Cliente</h4>
         <div class="form-group">
           <label for="nome">Nome</label>
           <input
@@ -32,14 +33,19 @@
           />
         </div>
         <div class="form-group">
-          <label for="cpf">Sexo</label>
-          <input
+          <label for="sexo">Sexo</label>
+          <select 
             type="text"
             class="form-control"
+            aria-label="Selecione o sexo"
             id="sexo"
             [(ngModel)]="cliente.sexo"
             name="sexo"
-          />
+            >
+            <option selected>Sexo</option>
+            <option value="F">F</option>
+            <option value="M">M</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="apelido">Apelido</label>
@@ -81,12 +87,14 @@
             name="dataNascimento"
           />
         </div>
-  
+        <p>{{ message }}</p>
         <button (click)="saveCliente()" class="btn btn-success">Cadastrar</button>
+        <br>
+        <br>
       </div>
   
       <div *ngIf="submitted">
-        <h4>Cliente adicionado com sucesso!</h4>
+        <h4>Cliente cadastrado com sucesso!</h4>
         <button class="btn btn-success" (click)="newCliente()">Add</button>
       </div>
     </div>

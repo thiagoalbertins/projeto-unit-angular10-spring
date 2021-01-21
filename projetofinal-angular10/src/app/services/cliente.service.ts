@@ -20,7 +20,7 @@ export class ClienteService {
   }
 
   create(data): Observable<any> {
-    return this.http.post(baseUrl, data);
+    return this.http.post(`${baseUrl}/add`, data);
   }
 
   update(id, data): Observable<any> {

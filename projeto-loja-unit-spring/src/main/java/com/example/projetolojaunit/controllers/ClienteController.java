@@ -34,38 +34,39 @@ public class ClienteController {
 	private ClienteRepository clienteRepository;
 
 	@PostMapping(path = "/add")
-	public @ResponseBody String addNewCliente(@RequestParam String nome, @RequestParam String cpf,
-			@RequestParam String email, Date dataNascimento, String sexo, String nomeSocial, String apelido,
-			String telefone) {
-
-		if (nome == null || nome.length() == 0) {
-			return "Favor informar um nome válido";
-		}
-
-		if (cpf == null || cpf.length() < 11) {
-			return "Favor informar um cpf válido";
-		}
-
-		if (email == null || !email.contains("@")) {
-			return "Favor informar um email válido";
+	public ResponseEntity addNewCliente(@RequestBody Cliente cliente) {
+		if (clienteRepository.existsByCpf(cliente.getCpf())) {
+			return new ResponseEntity<>("Já existe um cliente cadastrado com o CPF informado!", HttpStatus.BAD_REQUEST);
 		}
 		
-		if (clienteRepository.existsByCpf(cpf)) {
-			return "Já existe um cliente com CPF informado";
+		if (cliente.getNome() == null || cliente.getNome().length() == 0) {
+			return new ResponseEntity<>("Favor informar um nome válido!",HttpStatus.BAD_REQUEST);
 		}
 
+		if (cliente.getCpf() == null || cliente.getCpf().length() != 11) {
+			return new ResponseEntity<>("Favor informar um CPF válido!", HttpStatus.BAD_REQUEST);
+		}
+
+		if (cliente.getEmail() == null || !cliente.getEmail().contains("@")) {
+			return new ResponseEntity<>("Favor informar um email válido!",HttpStatus.BAD_REQUEST);
+		}
+		
+		if (cliente.getTelefone().length() > 13) {
+			return new ResponseEntity<>("Favor informar um telefone válido!",HttpStatus.BAD_REQUEST);
+		}
+		
 		Cliente c = new Cliente();
-		c.setNome(nome);
-		c.setCpf(cpf);
-		c.setEmail(email);
-		c.setDataNascimento(dataNascimento);
-		c.setSexo(sexo);
-		c.setNomeSocial(nomeSocial);
-		c.setApelido(apelido);
-		c.setTelefone(telefone);
+		c.setNome(cliente.getNome());
+		c.setCpf(cliente.getCpf());
+		c.setEmail(cliente.getEmail());
+		c.setDataNascimento(cliente.getDataNascimento());
+		c.setSexo(cliente.getSexo());
+		c.setNomeSocial(cliente.getNomeSocial());
+		c.setApelido(cliente.getApelido());
+		c.setTelefone(cliente.getTelefone());
 		clienteRepository.save(c);
 
-		return "Cliente salvo!";
+		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
 
 	@GetMapping(path = "/all")
@@ -97,41 +98,42 @@ public class ClienteController {
 	}
 
 	@DeleteMapping(path = "/delete/{id}")
-	public @ResponseBody String deleteCliente(@PathVariable Integer id) {
+	public ResponseEntity<HttpStatus> deleteCliente(@PathVariable Integer id) {
 		try {
 			clienteRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException a) {
-			return "Cliente não encontrado!";
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return "Cliente deletado com sucesso!";
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	@PutMapping(path = "/update/{id}")
-	public ResponseEntity<Cliente> updateCliente(@PathVariable("id") Integer id, @RequestBody Cliente cliente) {
+	public ResponseEntity updateCliente(@PathVariable("id") Integer id, @RequestBody Cliente cliente) {
 		Optional<Cliente> clienteData = clienteRepository.findById(id);
 		Cliente c = clienteData.get();
 		
 		if (clienteRepository.existsByCpf(cliente.getCpf()) && !(c.getCpf().equals(cliente.getCpf()))) {
-			System.out.println(c.getCpf());
-			System.out.println(cliente.getCpf());
-			System.out.println(c.getCpf().equals(cliente.getCpf()));
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Já existe um cliente cadastrado com o CPF informado!", HttpStatus.BAD_REQUEST);
 		}
 		
 		if (!clienteRepository.existsById(cliente.getId())) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Cliente não existe na base de dados!",HttpStatus.BAD_REQUEST);
 		}
 
 		if (cliente.getNome() == null || cliente.getNome().length() == 0) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Favor informar um nome válido!",HttpStatus.BAD_REQUEST);
 		}
 
-		if (cliente.getCpf() == null || cliente.getCpf().length() < 11) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		if (cliente.getCpf() == null || cliente.getCpf().length() != 11) {
+			return new ResponseEntity<>("Favor informar um CPF válido!", HttpStatus.BAD_REQUEST);
 		}
 
 		if (cliente.getEmail() == null || !cliente.getEmail().contains("@")) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Favor informar um email válido!",HttpStatus.BAD_REQUEST);
+		}
+		
+		if (cliente.getTelefone().length() > 13) {
+			return new ResponseEntity<>("Favor informar um telefone válido!",HttpStatus.BAD_REQUEST);
 		}
 		
 
@@ -144,6 +146,7 @@ public class ClienteController {
 		c.setNomeSocial(cliente.getNomeSocial());
 		c.setApelido(cliente.getApelido());
 		c.setTelefone(cliente.getTelefone());
+		
 		return new ResponseEntity<>(clienteRepository.save(c), HttpStatus.OK);
 
 	}

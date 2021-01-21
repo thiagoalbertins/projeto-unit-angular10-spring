@@ -8,11 +8,17 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class AddClienteComponent implements OnInit {
   cliente = {
-    title: '',
-    description: '',
-    published: false
+    nome: '',
+	  cpf: '',
+	  email: '',
+	  dataNascimento: '',
+	  sexo: '',
+	  nomeSocial: '',
+	  apelido: '',
+	  telefone: ''
   };
   submitted = false;
+  message = '';
 
   constructor(private clienteService: ClienteService) { }
 
@@ -21,8 +27,14 @@ export class AddClienteComponent implements OnInit {
 
   saveCliente(): void {
     const data = {
-      title: this.cliente.title,
-      description: this.cliente.description
+      nome: this.cliente.nome,
+      cpf: this.cliente.cpf,
+      email: this.cliente.email,
+      dataNascimento: this.cliente.dataNascimento,
+      sexo: this.cliente.sexo,
+      nomeSocial: this.cliente.nomeSocial,
+      apelido: this.cliente.apelido,
+      telefone: this.cliente.telefone
     };
 
     this.clienteService.create(data)
@@ -32,16 +44,23 @@ export class AddClienteComponent implements OnInit {
           this.submitted = true;
         },
         error => {
+          this.message = error.error
           console.log(error);
+          
         });
   }
 
   newCliente(): void {
     this.submitted = false;
     this.cliente = {
-      title: '',
-      description: '',
-      published: false
+      nome: '',
+      cpf: '',
+      email: '',
+      dataNascimento: '',
+      sexo: '',
+      nomeSocial: '',
+      apelido: '',
+      telefone: ''
     };
   }
 

@@ -83,6 +83,7 @@
           />
         </div>
       </form>
+      <p>{{ message }}</p>
   
       <button class="badge badge-danger mr-2" (click)="deleteCliente()">
         Deletar
@@ -95,7 +96,8 @@
       >
         Atualizar
       </button>
-      <p>{{ message }}</p>
+      <br>
+      <br>
     </div>
   
     <div *ngIf="!currentCliente">
