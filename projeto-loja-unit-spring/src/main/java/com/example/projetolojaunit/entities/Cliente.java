@@ -1,6 +1,6 @@
 package com.example.projetolojaunit.entities;
 
-import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +22,7 @@ public class Cliente {
 	
 	String email;
 	
-	Date data_nascimento;
+	java.util.Date data_nascimento;
 	
 	String sexo;
 	
@@ -64,11 +64,14 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Date getDataNascimento() {
+	public java.util.Date getDataNascimento() {
 		return data_nascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(java.util.Date dataNascimento) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(dataNascimento);
+        dataNascimento = c.getTime();
 		this.data_nascimento = dataNascimento;
 	}
 
